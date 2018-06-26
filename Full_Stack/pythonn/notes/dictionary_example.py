@@ -1,7 +1,7 @@
-# dictionary_example.py 6/20/18
-
-d = {"key1": "value1", "key2": "value2"}
-
+# # dictionary_example.py 6/20/18
+#
+# d = {"key1": "value1", "key2": "value2"}
+#
 # print(d)
 # print(d["key1"])
 # print(list(d.keys()))
