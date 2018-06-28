@@ -1,14 +1,14 @@
 # adventure.py 6/28/18
 
 # Added functionality: easier user inputs, change number of enemies, enemy movement,
-# change board size, map boundaries, implement dodge chance, implement gameover
-# when all monsters are dead
+# map boundaries, implement dodge chance, implement gameover when all monsters are dead
 
 import random
 
 width = 5  # the width of the board
 height = 5  # the height of the board
 
+# keep track of enemy i and j position
 enemy_location = {}
 
 # initialize enemy_location dict
@@ -24,11 +24,12 @@ for i in range(height):  # loop over the rows
     for j in range(width):  # loop over the columns
         board[i].append(' ')  # append an empty space to the board
 
-# define the player position
+# define the player position in the center
 player_i = height // 2
 player_j = width // 2
 
-# add num_enemies in random locations
+# add multiple enemies in random locations
+# update the enemy location dict accordingly
 for i in range(num_enemies):
     enemy_i = random.randint(0, height - 1)
     enemy_j = random.randint(0, width - 1)
@@ -44,6 +45,8 @@ while True:
     if command.lower() in ['', 'done']:
         print("Goodbye!")
         break  # exit the game
+
+    # boundary checking
     elif command.lower() in ['l', 'left']:
         if player_j - 1 >= 0:
             player_j -= 1  # move left
@@ -84,6 +87,8 @@ while True:
         elif action.lower() in  ['r', 'run']:
             print("Successfully ran from the moster.")
             continue
+
+        # 1 in 3 dodge chance
         elif action.lower() in  ['d', 'dodge']:
             if 0 == random.choice([0, 1, 2]):
                 print("Successfully dodged the attack!")
@@ -109,6 +114,7 @@ while True:
                 print(board[i][j], end=' ')  # otherwise print the board square
         print()
 
+    # check if all monsters have been killed
     if all(value == [] for value in enemy_location.values()):
         print("Congrats! You've killed all the monsters!")
         print("Thanks for playing!")
