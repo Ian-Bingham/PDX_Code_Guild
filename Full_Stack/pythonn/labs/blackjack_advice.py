@@ -1,10 +1,5 @@
 # blackjack_advice.py 6/29/18
 
-# Less than 17, advise to “Hit”
-# Greater than or equal to 17, but less than 21, advise to “Stay”
-# Exactly 21, advise “Blackjack!”
-# Over 21, advise “Already Busted”
-
 # initialize card values
 card_values = {'J': 10, 'Q': 10, 'K': 10, 'A': [1, 11]}
 for i in range(10):
@@ -16,8 +11,20 @@ def print_hit():
 def print_stand():
     print("You should Stand.")
 
-def print_double():
-    print("You should Double Down.")
+def print_double_hit():
+    print("You should Double Down if allowed. Otherwise, Hit.")
+
+def print_double_stand():
+    print("You should Double Down if allowed. Otherwise, Stand.")
+
+def print_split():
+    print("You should Split.")
+
+def print_split_hit():
+    print("You should Split if Double Down after Split is allowed. Otherwise, Hit.")
+
+def print_surrender_hit():
+    print("You should Surrender if allowed. Otherwise, Hit.")
 
 def print_blackjack():
     print("Blackjack!!!")
@@ -68,23 +75,59 @@ while True:
     # elif first_card_value + second_card_value > 21:
     #     print_bust()
 
-    # pair values
+    # pair values - both cards are the same
     if first_card_value == second_card_value:
-        pass
+        if first_card_value in [2, 3]:
+            if dealer_card_value in [2, 3]:
+                print_split_hit()
+            elif dealer_card_value in [4, 5, 6, 7]:
+                print_split()
+            else:
+                print_hit()
+        if first_card_value == 4:
+            if dealer_card_value in [5, 6]:
+                print_split_hit()
+            else:
+                print_hit()
+        if first_card_value == 5:
+            if dealer_card_value not in [10, 11]:
+                print_double_hit()
+            else:
+                print_hit()
+        if first_card_value == 6:
+            if dealer_card_value in [2]:
+                print_split_hit()
+            elif dealer_card_value in [3, 4, 5, 6]:
+                print_split()
+            else:
+                print_hit()
+        if first_card_value == 7:
+            if dealer_card_value not in [8, 9, 10, 11]:
+                print_split()
+            else:
+                print_hit()
+        if first_card_value_value in [8, 11]:
+            print_split()
+        if first_card_value == 9:
+            if dealer_card_value not in [7, 10, 11]:
+                print_split()
+            else:
+                print_stand()
+        if first_card_value == 10:
+            print_stand()
 
-
-    # hard values
+    # hard values - neither card is an ace
     elif first_card_value != 11 and second_card_value != 11:
         if 5 <= first_card_value + second_card_value <= 8:
             print_hit()
         if first_card_value + second_card_value == 9:
             if dealer_card_value in [3, 4, 5, 6]:
-                print_double()
+                print_double_hit()
             else:
                 print_hit()
         if first_card_value + second_card_value in [10, 11]:
             if dealer_card_value not in [10, 11]:
-                print_double()
+                print_double_hit()
             else:
                 print_hit()
         if first_card_value + second_card_value == 12:
@@ -95,6 +138,10 @@ while True:
         if 13 <= first_card_value + second_card_value <= 16:
             if dealer_card_value in [2, 3, 4, 5, 6]:
                 print_stand()
+            elif first_card_value + second_card_value == 15 and dealer_card_value in [10]:
+                print_surrender_hit()
+            elif first_card_value + second_card_value == 16 and dealer_card_value in [9, 10, 11]:
+                print_surrender_hit()
             else:
                 print_hit()
         if 17 <= first_card_value + second_card_value <= 21:
@@ -102,3 +149,7 @@ while True:
                 print_blackjack()
             else:
                 print_stand()
+
+    # soft values - at least one card is an ace
+    elif first_card_value == 11 or second_card_value == 11:
+        pass
