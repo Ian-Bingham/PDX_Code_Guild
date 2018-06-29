@@ -6,34 +6,6 @@ phonebook = [
                 {"name": "Xion Crane", "number": "7778889999"}
             ]
 
-def phonebook_func():
-    contact_option = input("Select a contact option: (C)reate, (R)etrieve, (U)pdate, (D)elete, (S)how: ")
-
-    if contact_option.lower() in ["c", "create"]:
-        create_contact()
-    elif contact_option.lower() in ["r", "retrieve"]:
-        retrieve_contact()
-    elif contact_option.lower() in ["u", "update"]:
-        update_contact()
-    elif contact_option.lower() in ["d", "delete"]:
-        delete_contact()
-    elif contact_option.lower() in ["s", "show"]:
-        show_contact()
-    else:
-        print("Not a valid option.")
-
-    again = input("Would you like to enter another option?: ")
-
-    while True:
-        if again.lower() == "yes" or again.lower() == "y":
-            phonebook_func()
-        elif again.lower() == "no" or again.lower() == "n":
-            print("Goodbye.")
-            exit(0)
-        else:
-            print("Not a valid input.")
-            again = input("Would you like to enter another option?: ")
-
 def create_contact():
     name = input("Enter the first and last name: ").title()
 
@@ -79,7 +51,7 @@ def delete_contact():
             del phonebook[i]
             print("Phonebook has been updated.")
             return
-            
+
         i += 1
 
     print("That contact does not exist.")
@@ -88,4 +60,27 @@ def show_contact():
     for contact in phonebook:
         print("{} {}".format(contact['name'], contact['number']))
 
-phonebook_func()
+def main():
+    while True:
+        print()
+        contact_option = input("Select a contact option: (C)reate, (R)etrieve, \
+(U)pdate, (D)elete, (S)how (type done to quit): ")
+
+        print('*' * 50)
+        if contact_option.lower() in ["c", "create"]:
+            create_contact()
+        elif contact_option.lower() in ["r", "retrieve"]:
+            retrieve_contact()
+        elif contact_option.lower() in ["u", "update"]:
+            update_contact()
+        elif contact_option.lower() in ["d", "delete"]:
+            delete_contact()
+        elif contact_option.lower() in ["s", "show"]:
+            show_contact()
+        elif contact_option.lower() == 'done':
+            print("Goodbye!")
+            exit(0)
+        else:
+            print("Not a valid option.")
+
+main()
