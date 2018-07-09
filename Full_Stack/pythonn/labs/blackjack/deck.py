@@ -16,9 +16,9 @@ class Deck(object):
 
     def __repr__(self):
         temp = ''
-        for i in range(len(self.deck)):
-            temp += '{} of {}\n'.format(self.deck[i].rank, self.deck[i].suit)
-        return temp
+        for card in self.deck:
+            temp += str(card) + '\n'
+        return temp[:-1]
 
     def __len__(self):
         return len(self.deck)
@@ -34,7 +34,7 @@ class Deck(object):
         cut = choice(range(10, 52))
         self.deck = self.deck[cut:] + self.deck[:cut]
 
-    def draw_card(self):
+    def deal(self):
         return self.deck.pop(0)
 
 if __name__ == '__main__':
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     print(deck)
 
     print('*' * 80)
-    print("Length of Deck:", str(len(deck)))
-    print("7th Card in Deck:", deck[6])
-    top_card = deck.draw_card()
-    print("Draw Card:", top_card)
+    print("Length of Deck: " + str(len(deck)))
+    print("7th Card in Deck: " + str(deck[6]))
+    top_card = deck.deal()
+    print("Draw Card: " + str(top_card))
