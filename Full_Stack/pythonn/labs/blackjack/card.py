@@ -5,10 +5,13 @@ class Card(object):
         self.rank = rank
         self.suit = suit
 
+    def __repr__(self):
+        return "{} of {}".format(self.rank, self.suit)
+
 if __name__ == '__main__':
     card1 = Card('5', 'Hearts')
-    print(card1.rank, "of", card1.suit)
+    print(card1)
     card2 = Card('Q', 'Clubs')
-    print(card2.rank, "of", card2.suit)
+    print(card2)
     card3 = Card('A', 'Diamonds')
-    print(card3.rank, "of", card3.suit)
+    print(card3)

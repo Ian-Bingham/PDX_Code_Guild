@@ -17,12 +17,14 @@ class Deck(object):
     def shuffle(self):
         return shuffle(self.deck)
 
-    def print_deck(self):
+    def __repr__(self):
+        temp = ''
         for i in range(len(self.deck)):
-            print('{} of {}'.format(self.deck[i].rank, self.deck[i].suit))
+            temp += '{} of {}\n'.format(self.deck[i].rank, self.deck[i].suit)
+        return temp
 
     def cut_deck(self):
-        cut = choice(range(52))
+        cut = choice(range(10, 52))
         self.deck = self.deck[cut:] + self.deck[:cut]
 
     def draw_card(self):
@@ -30,13 +32,13 @@ class Deck(object):
 
 if __name__ == '__main__':
     deck = Deck()
-    deck.print_deck()
+    print(deck)
     print('*' * 80)
     deck.shuffle()
-    deck.print_deck()
+    print(deck)
     print('*' * 80)
     deck.cut_deck()
-    deck.print_deck()
+    print(deck)
     print('*' * 80)
     top_card = deck.draw_card()
-    print(top_card.rank, top_card.suit)
+    print(top_card)
