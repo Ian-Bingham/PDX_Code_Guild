@@ -27,6 +27,7 @@ class Hand(object):
             points += score_conversion[card.rank]
         return points
 
+
 if __name__ == '__main__':
     deck = Deck()
     deck.shuffle()
@@ -37,9 +38,3 @@ if __name__ == '__main__':
     print("Hand Drawn From Deck\n" + str(hand1))
     print("Length of Hand: " + str(len(hand1)))
     print("Points: " + str(hand1.score()))
-
-    # hand2 = Hand()
-    # hand2.create_hand()
-    # print("Self Created Hand\n", hand2)
-    # print("Length of Hand", str(len(hand2)))
-    # print("Points " + str(hand2.score()))
