@@ -3,6 +3,7 @@
 from card import Card
 from deck import Deck
 from hand import Hand
+from dealer import Dealer
 from time import sleep
 
 class Game(object):
@@ -12,7 +13,7 @@ class Game(object):
 
         # add two cards to the player hand, and dealer hand
         self.player = Hand()
-        self.dealer = Hand()
+        self.dealer = Dealer()
         for i in range(2):
             self.player.add_card(self.deck.deal())
             self.dealer.add_card(self.deck.deal())
@@ -27,14 +28,14 @@ class Game(object):
 
     def print_game(self, stay=False):
         print("---------")
-        # if not stay:
-        #     print("Dealer Showing:\n" + str(self.dealer.visible_card()))
-        #     print("Points visible: " + str(self.dealer.visible_score()))
-        # else:
-        #     print("Dealer:\n" + str(self.dealer))
-        #     print("Points: " + str(self.dealer.score()))
-        print("Dealer:\n" + str(self.dealer))
-        print("Points: " + str(self.dealer.score()))
+        if not stay:
+            print("Dealer Showing (One Card is hidden):\n" + self.dealer.visible_card())
+            print("Points visible: " + self.dealer.visible_score())
+        else:
+            print("Dealer:\n" + str(self.dealer))
+            print("Points: " + str(self.dealer.score()))
+        # print("Dealer:\n" + str(self.dealer))
+        # print("Points: " + str(self.dealer.score()))
         print()
         print("Player:\n" + str(self.player))
         print("Points: " + str(self.player.score()))
