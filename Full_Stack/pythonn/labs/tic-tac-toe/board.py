@@ -18,12 +18,15 @@ class Board(object):
 
     def move(self, player):
         while True:
-            position = int(input("Where would you like to place a piece '{}' player (1-9)? ".format(player.token)))
-            if self.board[position] == '_':
-                self.board[position] = player.token
-                break
+            position = input("Where would you like to place a piece '{}' player (1-9)? ".format(player.token))
+            if position.isdigit() and 1 <= int(position) <= 9:
+                if self.board[int(position)] == '_':
+                    self.board[int(position)] = player.token
+                    break
+                else:
+                    print("That spot is already taken.")
             else:
-                print("That spot is already taken.")
+                print("Please enter a number from 1-9.")
 
     def calc_winner(self):
         # Rows
