@@ -21,12 +21,25 @@ class Hand(object):
 
     def score(self):
         score_conversion = {str(key):key for key in range(2, 11)}
-        score_conversion.update({'A': 1, 'J': 10, 'Q': 10, 'K': 10})
+        score_conversion.update({'A': 11, 'J': 10, 'Q': 10, 'K': 10}) # Ace defaults to 11
+        numAces = 0
         points = 0
         for card in self.hand:
-            points += score_conversion[card.rank]
-        return points
+            temp_points = points
+            newVal = score_conversion[card.rank]
+            if card.rank == 'A':
+                numAces += 1
+            temp_points += newVal
+            points = temp_points
 
+        # implement Ace as a value of 1 if needed
+        if points > 21:
+            for i in range(numAces):
+                points -= 10
+                if points < 21:
+                    break
+
+        return points
 
 if __name__ == '__main__':
     deck = Deck()
