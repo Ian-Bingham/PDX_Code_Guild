@@ -34,8 +34,6 @@ class Game(object):
         else:
             print("Dealer:\n" + str(self.dealer))
             print("Points: " + str(self.dealer.score()))
-        # print("Dealer:\n" + str(self.dealer))
-        # print("Points: " + str(self.dealer.score()))
         print()
         print("Player:\n" + str(self.player))
         print("Points: " + str(self.player.score()))
@@ -44,7 +42,7 @@ class Game(object):
         stay = False
         self.print_game(stay)
         while True:
-            command = input("Do you want to hit or stay? ").lower()
+            command = input("Do you want to (h)it or (s)tay? ").lower()
             if command in ['hit', 'h']:
                 self.hit()
                 sleep(1.5)
@@ -57,11 +55,14 @@ class Game(object):
 
             # check if game over
             if self.bust(self.player):
-                print("Sorry. You lose.")
+                print("\nSorry. You lose.\n")
                 break
 
             # if the player stays then it's the dealers turn
             if stay:
+                # print the dealers hidden card and total score
+                sleep(1.5)
+                self.print_game(stay)
                 while True:
                     if self.dealer.score() < 17:
                         self.dealer.add_card(self.deck.deal())
@@ -72,13 +73,13 @@ class Game(object):
 
                 # check if game over
                 if self.bust(self.dealer) or self.player.score() > self.dealer.score():
-                    print("You win!")
+                    print("\nYou win!\n")
                     break
                 elif self.player.score() == self.dealer.score():
-                    print("Push.")
+                    print("\nPush.\n")
                     break
                 else:
-                    print("Sorry. You lose.")
+                    print("\nSorry. You lose.\n")
                     break
 
 if __name__ == '__main__':
