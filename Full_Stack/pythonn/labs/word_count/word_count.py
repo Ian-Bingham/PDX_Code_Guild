@@ -3,6 +3,7 @@
 from operator import itemgetter
 import string
 
+
 def clean_text(filename):
     # lowercase everything, remove punctions, then create a list of words
     translator = str.maketrans('', '', string.punctuation)
@@ -10,6 +11,7 @@ def clean_text(filename):
         text = f.read().lower().translate(translator)
         word_list = text.split()
         return word_list
+
 
 def count_words(word_list):
     # find all of the unique words and keep a word count: {word: wordcount}
@@ -21,13 +23,15 @@ def count_words(word_list):
             unique_word_dict[word] += 1
     return unique_word_dict
 
+
 def top_words(unique_word_dict, num):
     # create a list of tuples from the unique_word_dict: (word, wordCount)
     unique_word_list = []
     for key, value in unique_word_dict.items():
         unique_word_list.append((key, value))
 
-    # sort the list of tuples in ascending order by the second value in the tuple
+    # sort the list of tuples in ascending order
+    # by the second value in the tuple
     unique_word_list.sort(key=itemgetter(1))
     top_words = []
     for i in range(num):
@@ -37,6 +41,7 @@ def top_words(unique_word_dict, num):
     top_words.reverse()
     for word, wordCount in top_words:
         print("'{}' was seen {} times.".format(word, wordCount))
+
 
 def main():
     filename = input("What is the name of the file?: ")
