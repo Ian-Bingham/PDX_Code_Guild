@@ -5,8 +5,6 @@ from board import Board
 
 def main():
         while True:
-            print("Welcome to Tic Tac Toe!")
-
             # create players
             playerX = Player('X')
             playerO = Player('O')
