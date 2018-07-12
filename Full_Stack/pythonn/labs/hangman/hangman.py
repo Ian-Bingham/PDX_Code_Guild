@@ -1,6 +1,8 @@
 # hangman.py 6/27/18
 
-import random, string
+import random
+import string
+
 
 # creates a word list with words greater than 5 letters
 def load_words(path):
@@ -12,19 +14,23 @@ def load_words(path):
                 wl.append(word)
     return wl
 
+
 # picks a random word from the word list
 def pick_random_word(word_list):
     return random.choice(word_list)
 
+
 # user word initially starts off with all blanks
 def user_init_word(word):
     return '{}'.format('_' * len(word))
+
 
 # updates number_of_guesses accordingly
 def update_guesses(prevWord, currWord, guesses):
     if prevWord == currWord:
         return (guesses - 1)
     return guesses
+
 
 # checks if letter is in correct_word and updates user_word accordingly
 def replace_blank(correct_word, user_word, letter):
@@ -39,10 +45,12 @@ def replace_blank(correct_word, user_word, letter):
     # return user word
     return ''.join(temp_user_word)
 
+
 # puts spaces between letters and blanks for display readibility
 def display_user_word(word):
     temp = word[::]
     return temp.replace('', ' ')
+
 
 # check if we ran out of guesses
 def isOutOfGuesses(number_of_guesses):
@@ -50,11 +58,13 @@ def isOutOfGuesses(number_of_guesses):
         return True
     return False
 
+
 # check if the user won
 def isWon(correct_word, user_word):
     if correct_word == user_word:
         return True
     return False
+
 
 # check if we want to play again
 def play_again():
@@ -68,6 +78,7 @@ def play_again():
         else:
             print("Not a valid input.")
     main()
+
 
 def main():
     # initialize things for the game
@@ -83,7 +94,8 @@ def main():
 
     while True:
         print()
-        user_letter = input("What letter would you like to guess (enter to exit)?: ")
+        user_letter = input("What letter would you like to guess "
+                            "(enter to exit)?: ")
         if not user_letter:
             print('Goodbye')
             exit(0)
@@ -102,10 +114,12 @@ def main():
                 print("You've already guessed that letter.")
                 continue
 
-            # check if the letter was correct and update number_of_guesses accordingly
+            # check if the letter was correct and
+            # update number_of_guesses accordingly
             prev_user_word = user_word
             user_word = replace_blank(correct_word, user_word, user_letter)
-            number_of_guesses = update_guesses(prev_user_word, user_word, number_of_guesses)
+            number_of_guesses = update_guesses(prev_user_word, user_word,
+                                               number_of_guesses)
 
             # display information to user
             print(display_user_word(user_word))
