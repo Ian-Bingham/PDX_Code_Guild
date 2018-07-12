@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 inches_per_tick = 0.01
 
+
 # calculate the mean total rain
 def mean_rain(rain_list):
     total_sum = 0
@@ -14,6 +15,7 @@ def mean_rain(rain_list):
 
     mean = total_sum / len(rain_list)
     return mean
+
 
 # calculate the variance of rain
 def variance_rain(rain_list, mean):
@@ -25,9 +27,11 @@ def variance_rain(rain_list, mean):
     variance = total_diff / len(rain_list)
     return variance
 
+
 # find the day with the most rain
 def rainiest_day(rain_list):
-    # create a copy of the list so we don't alter the original list when we do .sort()
+    # create a copy of the list so we don't alter the original
+    # list when we do .sort()
     temp_rain_list = rain_list[::]
 
     # sort the list of tuples by value, reverse it,
@@ -35,6 +39,7 @@ def rainiest_day(rain_list):
     temp_rain_list.sort(key=itemgetter(1), reverse=True)
     rainiest_day = temp_rain_list[0][0]
     return rainiest_day
+
 
 # find the year with the most average rain
 def rainiest_year(rain_list):
@@ -49,8 +54,8 @@ def rainiest_year(rain_list):
             i += 1
             total_sum += total
 
-        # calculate the mean once we've gathered all the data for the current year
-        # and add it to the dictionary {year: mean}
+        # calculate the mean once we've gathered all the data
+        # for the current year and add it to the dictionary {year: mean}
         else:
             year_rain_dict[current_year] = total_sum * inches_per_tick / i
             i = 0
@@ -59,9 +64,10 @@ def rainiest_year(rain_list):
 
     return max(year_rain_dict.items(), key=itemgetter(1))[0]
 
+
 def main():
     with open('rain_data.txt', 'r', encoding='utf-8') as f:
-        date_total_list = [] # list of tuples: (date, total rain)
+        date_total_list = []  # list of tuples: (date, total rain)
         day_list = []
         total_rain_list = []
         i = 0
