@@ -1,9 +1,19 @@
 # adventure.py 6/28/18
 
-# Added functionality: easier user inputs, change number of enemies, enemy movement,
-# map boundaries, implement dodge chance, implement gameover when all monsters are dead
+# Added functionality: easier user inputs,
+# change number of enemies, enemy movement,
+# map boundaries, implement dodge chance,
+# implement gameover when all monsters are dead
 
 import random
+import os
+from time import sleep
+
+
+# clear terminal screen and keep print statement at the top
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Welcome to Connect Four!")
 
 width = 5  # the width of the board
 height = 5  # the height of the board
@@ -39,8 +49,10 @@ for i in range(num_enemies):
 # loop until the user says 'done' or dies
 while True:
 
+    # get the command from the user
     print('What is your command?')
-    command = input("(u)p, (d)own, (l)eft, (r)ight, ('done' or enter to quit): ")  # get the command from the user
+    command = input("(u)p, (d)own, (l)eft, (r)ight, "
+                    "('done' or enter to quit): ")
 
     if command.lower() in ['', 'done']:
         print("Goodbye!")
@@ -63,12 +75,17 @@ while True:
         print("That was not a valid input.")
         continue
 
-    # make the monsters move
+    # make the monsters move randomly
     for i in range(num_enemies):
-        move = random.choice(['move_i', 'move_j'])
-        if enemy_location['enemy' + str(i)] != []:
-            new_enemy_i = enemy_location['enemy' + str(i)][0] + random.choice([-1, 0, 1])
-            new_enemy_j = enemy_location['enemy' + str(i)][1] + random.choice([-1, 0, 1])
+        move = random.choice(['move_i', 'move_j'])  # move either up or down
+        if enemy_location['enemy' + str(i)] != []:  # check if enemy is alive
+            # move one space in one direction, or dont move at all
+            new_enemy_i = enemy_location['enemy' + str(i)][0] + \
+                random.choice([-1, 0, 1])
+            new_enemy_j = enemy_location['enemy' + str(i)][1] + \
+                random.choice([-1, 0, 1])
+
+            # update location if within boundaries
             if 'move_i' in move:
                 if 0 <= new_enemy_i <= height - 1:
                     enemy_location['enemy' + str(i)][0] = new_enemy_i
@@ -81,21 +98,22 @@ while True:
         print('You\'ve encountered an enemy!')
         print("What will you do?")
         action = input('(a)ttack, (r)un, (d)odge: ')
-        if action.lower() in  ['a', 'attack']:
+        if action.lower() in ['a', 'attack']:
             print('You\'ve slain the enemy!')
             board[player_i][player_j] = ' '  # remove the enemy from the board
-        elif action.lower() in  ['r', 'run']:
+        elif action.lower() in ['r', 'run']:
             print("Successfully ran from the moster.")
             continue
 
         # 1 in 3 dodge chance
-        elif action.lower() in  ['d', 'dodge']:
+        elif action.lower() in ['d', 'dodge']:
             if 0 == random.choice([0, 1, 2]):
                 print("Successfully dodged the attack!")
             else:
                 print("Failed to dodge. You lose.")
                 break
 
+        sleep(1)
 
     # remove monster from monster list
     for i in range(num_enemies):
@@ -103,6 +121,7 @@ while True:
             enemy_location['enemy' + str(i)] = []
 
     # print out the board
+    clear()
     for i in range(height):
         for j in range(width):
             # if we're at the player location, print the player icon

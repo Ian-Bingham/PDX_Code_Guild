@@ -1,13 +1,21 @@
 # board.py 7/10/18
 
+import os
+
 
 class Board(object):
     # initialize board to underscores
     def __init__(self):
         self.board = {position: '_' for position in range(1, 10)}
 
+    # clear terminal screen and keep print statement at the top
+    def clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("Welcome to Tic-Tac-Toe!")
+
     # print representation of the board
     def __repr__(self):
+        self.clear()
         temp = ''
         for i in range(3):
             temp += '\n'
@@ -91,7 +99,7 @@ class Board(object):
         return True
 
     def is_gameover(self):
-        if self.calc_winner() not in None:
+        if self.calc_winner() not in [None]:
             print("{} player won!".format(self.calc_winner()))
             return True
         elif self.is_full():
