@@ -1,5 +1,6 @@
 # atm.py 6/25/18
 
+
 class ATM(object):
     def __init__(self, balance=0, interest_rate=0.001):
         self.transaction_list = []
@@ -31,7 +32,8 @@ class ATM(object):
             self.balance -= amount
             self.transaction_list.append('User withdrew ${}'.format(amount))
             return 'Withdrawal complete.'
-        return 'Not enough funds to withdraw ${} from your account.'.format(amount)
+        return 'Not enough funds to withdraw ${} '\
+               'from your account.'.format(amount)
 
     # calculate their interest
     def calc_interest(self):
