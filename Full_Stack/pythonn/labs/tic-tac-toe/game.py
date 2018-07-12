@@ -2,15 +2,20 @@
 from player import Player
 from board import Board
 
+
 def main():
         while True:
             print("Welcome to Tic Tac Toe!")
+
+            # create players
             playerX = Player('X')
             playerO = Player('O')
             players = [playerX, playerO]
-            board = Board()
-            player_turn = 0
-            print(board)
+            board = Board()  # initialize board
+            player_turn = 0  # track player turn
+            print(board)  # display initial board
+
+            # players take turns placing a piece until the game is over
             while True:
                 board.move(players[player_turn])
                 print(board)
@@ -19,6 +24,7 @@ def main():
                     print("Gameover!")
                     break
 
+            # see if they want to play again
             while True:
                 again = input("Would you like to play again? ").lower()
                 if again in ['y', 'yes']:

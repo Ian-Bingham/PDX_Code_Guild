@@ -1,11 +1,12 @@
 # board.py 7/10/18
 
-from player import Player
 
 class Board(object):
+    # initialize board to underscores
     def __init__(self):
-        self.board = {position:'_' for position in range(1, 10)}
+        self.board = {position: '_' for position in range(1, 10)}
 
+    # print representation of the board
     def __repr__(self):
         temp = ''
         for i in range(3):
@@ -16,10 +17,15 @@ class Board(object):
         temp += '\n'
         return temp
 
+    # place a token on the board
     def move(self, player):
-        while True:
-            position = input("Where would you like to place a piece '{}' player (1-9)? ".format(player.token))
+        while True:  # ask user where they want to place the piece
+            position = input("Where would you like to place a piece '{}' "
+                             "player (1-9)? ".format(player.token))
+
+            # check validity of input
             if position.isdigit() and 1 <= int(position) <= 9:
+                # check if the space is blank. otherwise there's a token
                 if self.board[int(position)] == '_':
                     self.board[int(position)] = player.token
                     break
@@ -28,6 +34,7 @@ class Board(object):
             else:
                 print("Please enter a number from 1-9.")
 
+    # check to see if there's a winner
     def calc_winner(self):
         # Rows
         # 123
@@ -46,23 +53,23 @@ class Board(object):
         # check rows
         for i in range(3):
             temp = ''
-            for j in range(1, 4):
-                temp += self.board[(i * 3) + j]
+            for j in range(3):
+                temp += self.board[(i * 3) + (j + 1)]
             # check if string is made up of the same character
             if '_' not in list(temp):
                 if len(set(temp)) == 1:
-                    return self.board[(i * 3) + j]
+                    return self.board[(i * 3) + (j + 1)]
                     # return 'Found rows'
 
         # check columns
-        for i in range(1, 4):
+        for i in range(3):
             temp = ''
             for j in range(3):
-                temp += self.board[i + (j * 3)]
+                temp += self.board[(i + 1) + (j * 3)]
             # check if string is made up of the same character
             if '_' not in list(temp):
                 if len(set(temp)) == 1:
-                    return self.board[i + (j * 3)]
+                    return self.board[(i + 1) + (j * 3)]
                     # return 'Found columns'
 
         # check diagonals
@@ -84,7 +91,7 @@ class Board(object):
         return True
 
     def is_gameover(self):
-        if self.calc_winner() != None:
+        if self.calc_winner() not in None:
             print("{} player won!".format(self.calc_winner()))
             return True
         elif self.is_full():
