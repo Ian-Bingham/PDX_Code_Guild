@@ -3,21 +3,29 @@
 from card import Card
 from random import shuffle, choice
 
+
 class Deck(object):
     def __init__(self):
-        rank = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        rank = ['2', '3', '4', '5', '6', '7', '8', '9', '10']
+        rank += ['J', 'Q', 'K', 'A']
         suit = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
         deck = []
 
+        # build a deck of 52 cards
+        # each rank will have 4 different suits
         for i in range(len(rank)):
             for j in range(len(suit)):
                 deck.append(Card(rank[i], suit[j]))
         self.deck = deck
 
     def __repr__(self):
+        # go through each card in the deck and appened
+        # the string representation of
+        # the card to a temp variable.
         temp = ''
         for card in self.deck:
             temp += str(card) + '\n'
+        # return the temp variable without the last newline character
         return temp[:-1]
 
     def __len__(self):
@@ -25,15 +33,17 @@ class Deck(object):
 
     def __getitem__(self, position):
         return self.deck[position]
-        # deck[5]
 
+    # shuffle the cards in the deck
     def shuffle(self):
         return shuffle(self.deck)
 
+    # pick a random number between 10 and 40 then cut the deck
     def cut_deck(self):
-        cut = choice(range(10, 52))
+        cut = choice(range(10, 41))
         self.deck = self.deck[cut:] + self.deck[:cut]
 
+    # return the top card on the deck
     def deal(self):
         return self.deck.pop(0)
 

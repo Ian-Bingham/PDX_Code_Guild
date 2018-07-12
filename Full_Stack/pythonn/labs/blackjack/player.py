@@ -3,7 +3,8 @@
 from card import Card
 from deck import Deck
 
-class Hand(object):
+
+class Player(object):
     def __init__(self):
         self.hand = []
 
@@ -16,21 +17,22 @@ class Hand(object):
     def __len__(self):
         return len(self.hand)
 
+    # add card to hand
     def add_card(self, card):
         self.hand.append(card)
 
+    # calculate score of hand
     def score(self):
-        score_conversion = {str(key):key for key in range(2, 11)}
-        score_conversion.update({'A': 11, 'J': 10, 'Q': 10, 'K': 10}) # Ace defaults to 11
-        numAces = 0
-        points = 0
+        # define score conversions - Ace defaults to 11
+        score_conversion = {str(key): key for key in range(2, 11)}
+        score_conversion.update({'A': 11, 'J': 10, 'Q': 10, 'K': 10})
+        numAces = 0  # keep track of number of Aces in hand
+        points = 0  # keep track of points
+        # go through each card in the hand and update points / number of Aces
         for card in self.hand:
-            temp_points = points
-            newVal = score_conversion[card.rank]
+            points += score_conversion[card.rank]
             if card.rank == 'A':
                 numAces += 1
-            temp_points += newVal
-            points = temp_points
 
         # implement Ace as a value of 1 if needed
         if points > 21:
@@ -45,7 +47,7 @@ if __name__ == '__main__':
     deck = Deck()
     deck.shuffle()
     print("Deck\n" + str(deck))
-    hand1 = Hand()
+    hand1 = Player()
     while len(hand1) < 5:
         hand1.add_card(deck.deal())
     print("Hand Drawn From Deck\n" + str(hand1))

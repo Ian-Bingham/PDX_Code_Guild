@@ -1,5 +1,6 @@
 # card.py 7/04/18
 
+
 class Card(object):
     def __init__(self, rank, suit):
         self.rank = rank
