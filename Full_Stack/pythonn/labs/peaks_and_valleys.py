@@ -1,5 +1,8 @@
 # peaks_and_valleys.py 6/25/18
 
+
+# check if a number has a smaller number to the right and left of it
+# get indice of peak number
 def peaks(num_list):
     peaks_indices = []
     for i in range(len(num_list) - 1):
@@ -8,6 +11,9 @@ def peaks(num_list):
                 peaks_indices.append(i)
     return peaks_indices
 
+
+# check if a number has a bigger number to the right and left of it
+# get indice of valley number
 def valleys(num_list):
     valleys_indices = []
     for i in range(len(num_list) - 1):
@@ -16,11 +22,15 @@ def valleys(num_list):
                 valleys_indices.append(i)
     return valleys_indices
 
+
+# find both peak and valley indices
 def peaks_and_valleys(num_list):
     pv_indices = peaks(num_list) + valleys(num_list)
     pv_indices.sort()
     return pv_indices
 
+
+# represent the numbers in graph form
 def draw_data(num_list):
     x_string_list = []
     for i in range(len(num_list)):

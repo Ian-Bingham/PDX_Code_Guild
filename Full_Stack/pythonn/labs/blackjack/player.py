@@ -1,6 +1,5 @@
 # hand.py 7/04/18
 
-from card import Card
 from deck import Deck
 
 
@@ -26,22 +25,23 @@ class Player(object):
         # define score conversions - Ace defaults to 11
         score_conversion = {str(key): key for key in range(2, 11)}
         score_conversion.update({'A': 11, 'J': 10, 'Q': 10, 'K': 10})
-        numAces = 0  # keep track of number of Aces in hand
+        num_aces = 0  # keep track of number of Aces in hand
         points = 0  # keep track of points
         # go through each card in the hand and update points / number of Aces
         for card in self.hand:
             points += score_conversion[card.rank]
             if card.rank == 'A':
-                numAces += 1
+                num_aces += 1
 
         # implement Ace as a value of 1 if needed
         if points > 21:
-            for i in range(numAces):
+            for i in range(num_aces):
                 points -= 10
                 if points < 21:
                     break
 
         return points
+
 
 if __name__ == '__main__':
     deck = Deck()

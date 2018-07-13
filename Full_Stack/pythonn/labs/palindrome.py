@@ -1,9 +1,10 @@
 # palindrome.py 6/13/18
 
+
 def palindrome(word):
     i = 0
-    while i < len(word) // 2:
-        if word[i] != word[(i + 1) * -1]:
+    while i < len(word) // 2:  # go up to half of the word
+        if word[i] != word[(i + 1) * -1]:  # check outer letters, work inward
             print(f"'{word}' is not a palindrome.")
             return
         i += 1

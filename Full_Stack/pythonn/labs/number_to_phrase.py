@@ -1,32 +1,45 @@
 # number_to_phrase.py 6/21/18
 
-ones_place_dict = { 0: "zero", 1: "one", 2: "two", 3: "three", 4: "four",
-                    5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine"}
+ones_place_dict = {0: "zero", 1: "one", 2: "two", 3: "three", 4: "four",
+                   5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine"}
 
-teens_dict = {  10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen",
-                15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen"}
+teens_dict = {10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen",
+              14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen",
+              18: "eighteen", 19: "nineteen"}
 
-tens_place_dict = { 2: "twenty", 3: "thirty", 4: "forty", 5: "fifty",
-                    6: "sixty", 7: "seventy", 8: "eighty", 9: "ninety"}
+tens_place_dict = {2: "twenty", 3: "thirty", 4: "forty", 5: "fifty",
+                   6: "sixty", 7: "seventy", 8: "eighty", 9: "ninety"}
 
-# roman_numerals_dict = { 1: 'I', 4: 'IV', 5: 'V', 9: 'IX', 10: 'X', 50: 'L', 100: 'C'}
-roman_numerals_dict = { 100: 'C', 50: 'L', 10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I'}
+# roman_numerals_dict = { 1: 'I', 4: 'IV', 5: 'V', 9: 'IX', 10: 'X',
+#                         50: 'L', 100: 'C'}
+# roman_numerals_dict = { 100: 'C', 50: 'L', 10: 'X', 9: 'IX', 5: 'V',
+#                           4: 'IV', 1: 'I'}
+
 
 def number_to_phrase():
     while True:
         user_input = input("Enter a number between 1-999 (or enter to quit): ")
 
+        # check if user wants to quit
         if not user_input:
             print("Goodbye")
             exit(0)
 
+        # check if number is between 1-99
         if user_input.isdigit() and len(user_input) < 3:
-            print("{} in English is '{}'".format(user_input, number_to_phrase_1_99(user_input)))
+            print("{} in English is '{}'"
+                  .format(user_input, number_to_phrase_1_99(user_input)))
+
+        # check if number is between 100-999
         elif user_input.isdigit() and len(user_input) == 3:
-            print("{} in English is '{}'".format(user_input, number_to_phrase_100_999(user_input)))
+            print("{} in English is '{}'"
+                  .format(user_input, number_to_phrase_100_999(user_input)))
+
+        # else they did not enter a number
         else:
             print("That was not a number between 1-999.")
             number_to_phrase()
+
 
 def number_to_phrase_1_99(number):
     if int(number) < 10:
@@ -37,7 +50,9 @@ def number_to_phrase_1_99(number):
         if number[-1] == "0":
             return tens_place_dict[int(number[0])]
         else:
-            return tens_place_dict[int(number[0])] + '-' + ones_place_dict[int(number[-1])]
+            return tens_place_dict[int(number[0])] + '-' + \
+                   ones_place_dict[int(number[-1])]
+
 
 def number_to_phrase_100_999(number):
     if int(number) % 100 == 0:
@@ -61,4 +76,5 @@ number_to_phrase()
 # # number_to_phrase()
 # output = ''
 # user_input = input("Enter a number between 1-999 (or enter to quit): ")
-# print("{} in English is '{}'".format(user_input, number_to_roman_numerals(user_input)))
+# print("{} in English is '{}'"
+#       .format(user_input, number_to_roman_numerals(user_input)))

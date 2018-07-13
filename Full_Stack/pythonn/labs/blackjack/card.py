@@ -9,6 +9,7 @@ class Card(object):
     def __repr__(self):
         return "{} of {}".format(self.rank, self.suit)
 
+
 if __name__ == '__main__':
     card1 = Card('5', 'Hearts')
     print(card1)

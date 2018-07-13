@@ -91,6 +91,7 @@ def show_contact():
 def main():
     while True:
         print()
+        # noinspection SpellCheckingInspection
         option = input("Select a contact option: (C)reate, (R)etrieve, "
                        "(U)pdate, (D)elete, (S)how (type done to quit): ")
 
@@ -110,5 +111,6 @@ def main():
             exit(0)
         else:
             print("Not a valid option.")
+
 
 main()

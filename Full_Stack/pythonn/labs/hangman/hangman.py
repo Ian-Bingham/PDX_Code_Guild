@@ -28,7 +28,7 @@ def user_init_word(word):
 # updates number_of_guesses accordingly
 def update_guesses(prevWord, currWord, guesses):
     if prevWord == currWord:
-        return (guesses - 1)
+        return guesses - 1
     return guesses
 
 
@@ -46,7 +46,7 @@ def replace_blank(correct_word, user_word, letter):
     return ''.join(temp_user_word)
 
 
-# puts spaces between letters and blanks for display readibility
+# puts spaces between letters and blanks for display readability
 def display_user_word(word):
     temp = word[::]
     return temp.replace('', ' ')
@@ -69,10 +69,10 @@ def isWon(correct_word, user_word):
 # check if we want to play again
 def play_again():
     while True:
-        play_again = input("Would you like to play again?: ")
-        if play_again.lower() in ['y', 'yes']:
+        again = input("Would you like to play again?: ")
+        if again.lower() in ['y', 'yes']:
             break
-        elif play_again.lower() in ['n', 'no']:
+        elif again.lower() in ['n', 'no']:
             print("Thanks for playing. Goodbye!")
             exit(0)
         else:
@@ -133,5 +133,6 @@ def main():
             if isWon(correct_word, user_word):
                 print("YOU WIN!!!")
                 play_again()
+
 
 main()

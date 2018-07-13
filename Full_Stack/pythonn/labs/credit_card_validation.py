@@ -11,18 +11,20 @@
 
 # 4556737586899855 -> Valid!
 
+
 def credit_card_validation():
     credit_card_16 = input("Please enter a 16 digit credit card number: ")
-    credit_card_16 = list(map(int, list(credit_card_16)))
-    check_digit = credit_card_16[-1]
-    credit_card_15 = credit_card_16[:-1]
-    credit_card_15.reverse()
+    credit_card_16 = list(map(int, list(credit_card_16)))  # convert to list
+    check_digit = credit_card_16[-1]  # get last digit
+    credit_card_15 = credit_card_16[:-1]  # slice off last digit
+    credit_card_15.reverse()  # reverse list
     for i in range(len(credit_card_15)):
-        if i % 2 == 0:
+        if i % 2 == 0:  # double every other element
             credit_card_15[i] *= 2
-        if  credit_card_15[i] > 9:
+        if credit_card_15[i] > 9:  # subtract 9 from numbers over nine
             credit_card_15[i] -= 9
 
+    # check card validity
     if str(sum(credit_card_15))[1] == str(check_digit):
         print("Card number is valid")
     else:

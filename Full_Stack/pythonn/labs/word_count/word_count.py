@@ -5,7 +5,7 @@ import string
 
 
 def clean_text(filename):
-    # lowercase everything, remove punctions, then create a list of words
+    # lowercase everything, remove punctuations, then create a list of words
     translator = str.maketrans('', '', string.punctuation)
     with open(filename, 'r', encoding="UTF-8") as f:
         text = f.read().lower().translate(translator)
@@ -33,13 +33,13 @@ def top_words(unique_word_dict, num):
     # sort the list of tuples in ascending order
     # by the second value in the tuple
     unique_word_list.sort(key=itemgetter(1))
-    top_words = []
+    topWords = []
     for i in range(num):
-        top_words.append(unique_word_list[-num + i])
+        topWords.append(unique_word_list[-num + i])
 
     # reverse the list of tuples so the top 10 words are first
-    top_words.reverse()
-    for word, wordCount in top_words:
+    topWords.reverse()
+    for word, wordCount in topWords:
         print("'{}' was seen {} times.".format(word, wordCount))
 
 
@@ -49,6 +49,7 @@ def main():
     unique_word_dict = count_words(wl)
     number = input("How many top words do you want to see?: ")
     top_words(unique_word_dict, int(number))
+
 
 main()
 

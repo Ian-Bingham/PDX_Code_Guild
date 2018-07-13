@@ -18,7 +18,8 @@ user_guess = input("Please guess a number between 1 and 10.\n> ")
 #         i += 1
 #         user_guess = input("Please guess a number between 1 and 10.\n> ")
 #     else:
-#         print(f"Sorry. You didn't guess the number within {max_guesses} guesses.")
+#         print(f"Sorry. You didn't guess the number within "
+#               "{max_guesses} guesses.")
 #         print("You lose.")
 #         break
 
@@ -50,8 +51,11 @@ user_guess = input("Please guess a number between 1 and 10.\n> ")
 #         i += 1
 #         user_guess = input("Please guess a number between 1 and 10.\n> ")
 
+
 # version 4 - tell user if current guess is closer than last
 last_difference = 0
+
+
 def closer(last_difference):
     if abs(int(user_guess) - computer_number) < last_difference:
         print("Warmer.")
@@ -61,7 +65,6 @@ def closer(last_difference):
         print("The number is in the middle of your last two guesses!")
     last_difference = abs(int(user_guess) - computer_number)
     return last_difference
-
 
 i = 0
 while True:

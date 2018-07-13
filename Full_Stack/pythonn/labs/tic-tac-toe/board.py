@@ -9,7 +9,8 @@ class Board(object):
         self.board = {position: '_' for position in range(1, 10)}
 
     # clear terminal screen and keep print statement at the top
-    def clear(self):
+    @staticmethod
+    def clear():
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Welcome to Tic-Tac-Toe!")
 
@@ -60,25 +61,33 @@ class Board(object):
 
         # check rows
         for i in range(3):
-            temp = ''
+            row = ''
+            col = ''
             for j in range(3):
-                temp += self.board[(i * 3) + (j + 1)]
+                row += self.board[(i * 3) + (j + 1)]  # rows
+                col += self.board[(i + 1) + (j * 3)]  # columns
             # check if string is made up of the same character
-            if '_' not in list(temp):
-                if len(set(temp)) == 1:
+            if '_' not in list(row):
+                if len(set(row)) == 1:
+                    # noinspection PyUnboundLocalVariable
                     return self.board[(i * 3) + (j + 1)]
                     # return 'Found rows'
-
-        # check columns
-        for i in range(3):
-            temp = ''
-            for j in range(3):
-                temp += self.board[(i + 1) + (j * 3)]
-            # check if string is made up of the same character
-            if '_' not in list(temp):
-                if len(set(temp)) == 1:
+            if '_' not in list(col):
+                if len(set(col)) == 1:
+                    # noinspection PyUnboundLocalVariable
                     return self.board[(i + 1) + (j * 3)]
                     # return 'Found columns'
+
+        # # check columns
+        # for i in range(3):
+        #     temp = ''
+        #     for j in range(3):
+        #         temp += self.board[(i + 1) + (j * 3)]
+        #     # check if string is made up of the same character
+        #     if '_' not in list(temp):
+        #         if len(set(temp)) == 1:
+        #             return self.board[(i + 1) + (j * 3)]
+        #             # return 'Found columns'
 
         # check diagonals
         if self.board[5] != '_':

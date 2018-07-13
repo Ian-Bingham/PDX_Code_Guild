@@ -9,7 +9,6 @@ inches_per_tick = 0.01
 # calculate the mean total rain
 def mean_rain(rain_list):
     total_sum = 0
-    mean = 0
     for date, total in rain_list:
         total_sum += total * inches_per_tick
 
@@ -20,7 +19,6 @@ def mean_rain(rain_list):
 # calculate the variance of rain
 def variance_rain(rain_list, mean):
     total_diff = 0
-    variance = 0
     for date, total in rain_list:
         total_diff += ((total * inches_per_tick) - mean) ** 2
 
@@ -37,8 +35,8 @@ def rainiest_day(rain_list):
     # sort the list of tuples by value, reverse it,
     # then grab the the first tuple to get the date with the most rain
     temp_rain_list.sort(key=itemgetter(1), reverse=True)
-    rainiest_day = temp_rain_list[0][0]
-    return rainiest_day
+    rainiestDay = temp_rain_list[0][0]
+    return rainiestDay
 
 
 # find the year with the most average rain
@@ -97,5 +95,6 @@ def main():
     plt.xlabel('Day Number')
     plt.ylabel('Rain in Inches')
     plt.show()
+
 
 main()

@@ -3,7 +3,7 @@
 # Added functionality: easier user inputs,
 # change number of enemies, enemy movement,
 # map boundaries, implement dodge chance,
-# implement gameover when all monsters are dead
+# implement game over when all monsters are dead
 
 import random
 import os
@@ -14,6 +14,7 @@ from time import sleep
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
     print("Welcome to Connect Four!")
+
 
 width = 5  # the width of the board
 height = 5  # the height of the board
@@ -43,7 +44,6 @@ player_j = width // 2
 for i in range(num_enemies):
     enemy_i = random.randint(0, height - 1)
     enemy_j = random.randint(0, width - 1)
-    # board[enemy_i][enemy_j] = '§'
     enemy_location['enemy' + str(i)] = [enemy_i, enemy_j]
 
 # loop until the user says 'done' or dies
@@ -51,6 +51,7 @@ while True:
 
     # get the command from the user
     print('What is your command?')
+    # noinspection SpellCheckingInspection
     command = input("(u)p, (d)own, (l)eft, (r)ight, "
                     "('done' or enter to quit): ")
 
@@ -78,8 +79,8 @@ while True:
     # make the monsters move randomly
     for i in range(num_enemies):
         move = random.choice(['move_i', 'move_j'])  # move either up or down
-        if enemy_location['enemy' + str(i)] != []:  # check if enemy is alive
-            # move one space in one direction, or dont move at all
+        if enemy_location['enemy' + str(i)]:  # check if enemy is alive
+            # move one space in one direction, or don't move at all
             new_enemy_i = enemy_location['enemy' + str(i)][0] + \
                 random.choice([-1, 0, 1])
             new_enemy_j = enemy_location['enemy' + str(i)][1] + \
@@ -95,14 +96,15 @@ while True:
 
     # check if the player is on the same space as an enemy
     if [player_i, player_j] in enemy_location.values():
-        print('You\'ve encountered an enemy!')
+        print("You've encountered an enemy!")
         print("What will you do?")
-        action = input('(a)ttack, (r)un, (d)odge: ')
+        # noinspection SpellCheckingInspection,SpellCheckingInspection
+        action = input("(a)ttack, (r)un, (d)odge: ")
         if action.lower() in ['a', 'attack']:
             print('You\'ve slain the enemy!')
             board[player_i][player_j] = ' '  # remove the enemy from the board
         elif action.lower() in ['r', 'run']:
-            print("Successfully ran from the moster.")
+            print("Successfully ran from the monster.")
             continue
 
         # 1 in 3 dodge chance

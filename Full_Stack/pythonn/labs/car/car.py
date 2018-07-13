@@ -7,7 +7,8 @@ class Car(object):
         self.color = color
         self.num_doors = num_doors
 
-    def honk(self):
+    @staticmethod
+    def honk():
         print('HONK!')
 
     def __str__(self):

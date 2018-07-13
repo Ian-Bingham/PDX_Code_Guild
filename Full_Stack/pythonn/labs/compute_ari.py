@@ -1,6 +1,7 @@
 # compute_ari.py 6/29/18
 
-# Formula: https://en.wikipedia.org/api/rest_v1/media/math/render/svg/878d1640d23781351133cad73bdf27bdf8bfe2fd
+# Formula: https://en.wikipedia.org/api/rest_v1/media/math/render/svg/
+# 878d1640d23781351133cad73bdf27bdf8bfe2fd
 
 from math import ceil
 
@@ -14,18 +15,20 @@ ari_scale = {
      7: {'ages': '11-12', 'grade_level':    '6th Grade'},
      8: {'ages': '12-13', 'grade_level':    '7th Grade'},
      9: {'ages': '13-14', 'grade_level':    '8th Grade'},
-    10: {'ages': '14-15', 'grade_level':    '9th Grade'},
-    11: {'ages': '15-16', 'grade_level':   '10th Grade'},
-    12: {'ages': '16-17', 'grade_level':   '11th Grade'},
-    13: {'ages': '17-18', 'grade_level':   '12th Grade'},
-    14: {'ages': '18-22', 'grade_level':      'College'}
+     10: {'ages': '14-15', 'grade_level':    '9th Grade'},
+     11: {'ages': '15-16', 'grade_level':   '10th Grade'},
+     12: {'ages': '16-17', 'grade_level':   '11th Grade'},
+     13: {'ages': '17-18', 'grade_level':   '12th Grade'},
+     14: {'ages': '18-22', 'grade_level':      'College'}
 }
+
 
 # get a list of words from the file
 def read_file(filename):
     with open(filename, 'r', encoding='utf-8') as f:
         word_list = f.read().rstrip().split()
         return word_list
+
 
 # count the number of periods to (roughly) get the number of sentences
 def count_sentences(word_list):
@@ -35,6 +38,7 @@ def count_sentences(word_list):
             count += 1
     return count
 
+
 # count the number of characters
 def count_characters(word_list):
     total = 0
@@ -42,9 +46,12 @@ def count_characters(word_list):
         total += len(word)
     return total
 
+
 # compute ari score using the given equation
 def compute_ari(characters, words, sentences):
-    return ceil(4.71 * (characters / words) + 0.5 * (words / sentences) - 21.43)
+    return ceil(4.71 * (characters / words) + 0.5 *
+                (words / sentences) - 21.43)
+
 
 def main():
     book = 'War and Peace'
@@ -61,7 +68,8 @@ def main():
     age = ari_scale[ari]['ages']
 
     print("The ARI for {} is {}.".format(book, ari))
-    print("This corresponds to a(n) {} level of difficulty \
-that is suitable for an average person {} years old.".format(grade, age))
+    print("This corresponds to a(n) {} level of difficulty "
+          "that is suitable for an average person {} years old."
+          .format(grade, age))
 
 main()

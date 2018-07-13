@@ -49,7 +49,7 @@ class Eagle(Bird):
 
     # create a new method called merica()
     def merica(self):
-        print(f"{self.name} flys around carrying a US flag and bacon.")
+        print(f"{self.name} flies around carrying a US flag and bacon.")
 
 
 class Tiger(Cat):
@@ -61,6 +61,7 @@ class Tiger(Cat):
     def move(self):
         super().move()
         print(f"{self.name} also stalks its prey")
+
 
 if __name__ == '__main__':
     print("*" * 20)

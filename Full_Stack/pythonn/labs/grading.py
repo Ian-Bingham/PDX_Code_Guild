@@ -1,8 +1,10 @@
 # grading.py 6/6/18
 
+
 def grading():
     grade = int(input("Type in a number between 0 and 100. > "))
 
+    # convert number to letter grade
     letter_grade = ''
     if grade in range(90, 101):
         letter_grade = 'A'
@@ -18,6 +20,7 @@ def grading():
         print("The number entered was not between 0 and 100. Exiting program.")
         exit(0)
 
+    # implement plus and minus grade
     if grade in range(50, 101):
         if grade % 10 <= 3:
             letter_grade += '-'

@@ -1,9 +1,13 @@
 # distance_converter.py 06/19/18
 
+# get user input
 distance = int(input("Enter a numerical distance to convert.\n> "))
 units = input("Enter the units of that distance (mi, km, ft, m).\n> ")
-target_units = input("Enter the units you would like to convert to (mi, km, ft, m).\n> ")
+target_units = input("Enter the units you would like to convert "
+                     "to (mi, km, ft, m).\n> ")
 
+
+# convert distance depending on starting and target unit
 def convert_distance(distance, units, target_units):
     if units == target_units:
         print("No conversion needed.")
