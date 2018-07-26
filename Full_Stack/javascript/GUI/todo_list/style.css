@@ -3,39 +3,43 @@
 }
 
 html, body {
-    margin: 5px;
+    margin: 10px;
     height: 100%;
 }
 
 #addTask {
-    background: blue;
+    width: 100vw;
+    margin-bottom: 2em;
+    background: #03a9f4;
 }
 
 #todoTasks {
-    background: orange;
+    background: #ffc107;
 }
 
 #finishedTasks {
-    background: purple;
+    background: #9c27b0;
 }
 
 #wrapper {
     display: flex;
     justify-content: space-evenly;
-}
-
-#wrapper div:first-child {
-    width: 30vw;
-    height: 1%;
+    flex-wrap: wrap;
 }
 
 #wrapper div:not(:first-child) {
-    width: 30vw;
+    width: 45vw;
     height: 50vh;
     overflow: auto;
 }
 
+h1 {
+    font-size: 3em;
+    text-align: center;
+}
+
 h2 {
+    font-size: 2em;
     text-align: center;
 }
 
@@ -46,9 +50,20 @@ section {
 
 textarea {
     resize: none;
-    font-size: 16px;
+    font-size: 1.2em;
+    flex: 20;
 }
 
 button {
     flex: 1;
+    font-size: 1.2em;
+}
+
+.finishText {
+    text-decoration: line-through;
+    background: #545454;
+}
+
+.todoText {
+    text-decoration: none;
 }
