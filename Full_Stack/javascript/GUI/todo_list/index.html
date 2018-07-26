@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" media="screen" href="style.css">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="addTask">
+             <section>
+                <textarea id="textstuff"></textarea>
+                <button onclick="addTask(this)">Add</button>
+                 <!--<button id="addBtn">Add</button>-->
+            </section>
+        </div>
+
+        <div id="todoTasks">
+            <h2>TODO</h2>
+        </div>
+
+        <div id="finishedTasks">
+            <h2>DONE</h2>
+        </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="todo_list.js"> </script>
+</body>
+</html>
