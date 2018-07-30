@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+#wrapper {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+#myTextArea {
+    position: fixed;
+    padding: 5px;
+    background: black;
+    color: limegreen;
+    width: 100vw;
+    height: 100vh;
+    font-size: 18px;
+    z-index: 2;
+}
