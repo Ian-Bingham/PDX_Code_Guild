@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 10px;
+    height: 100%;
+}
+
+.board {
+    width: 50vh;
+    height: 50vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.board img {
+    width: 30%;
+    height: 30%;
+    margin: 5px;
+}
+
+h1 {
+    width: 100%;
+}
