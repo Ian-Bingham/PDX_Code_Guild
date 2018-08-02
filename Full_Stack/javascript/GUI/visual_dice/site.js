@@ -1,15 +1,18 @@
 // create div elements for the number of dice the user wants
 function createNDice() {
     for(let i=0; i < $('#diceInput').val(); i++) {
-        $('#dicesField').append(`<div class="dice" id="dice${i}"></div>`);
+        $('#dicesField').append(`<div tabindex="${i}" class="dice" id="dice${i}"></div>`);
     }
 }
 
 // rolling for all dice
-// randomly generate a number 1-6 and display it in p
+// randomly generate a number 1-6 and display it
 function rollNDice() {
     for(let i=0; i < $('#dicesField').children().length; i++) {
         $(`#dice${i}`).text(Math.floor(Math.random() * 6) + 1);
+        $(`#dice${i}`).animate({backgroundColor: 'green'}, 300, function() {
+            $(`#dice${i}`).animate({backgroundColor: 'white'}, 300, function() {})
+        })
     }
 }
 
@@ -17,9 +20,24 @@ function rollNDice() {
 // randomly generate a number 1-6 and display it in p
 function roll() {
     $(event.target).text(Math.floor(Math.random() * 6) + 1);
-    $(event.target).animate({backgroundColor: 'green'}, 500, function() {
-        $(this).animate({backgroundColor: 'white'}, 500);
-    })
+}
+
+function colorAni() {
+    // while the color animation is running we want to unbind the click events
+    // for each dice so we do not overrun them with multiple clicks,
+    // then rebind them when the animation is over
+    $('#dicesField').unbind();
+    $(event.target).animate({backgroundColor: 'green'}, 300, function() {
+        $(this).animate({backgroundColor: 'white'}, 300, function() {
+            $('#dicesField').bind('click', $('.dices'), function() {
+                if($(event.target).is('.dice')) {
+                    colorAni();
+                    roll();
+                    countScore();
+                }
+            });
+        });
+    });
 }
 
 // go through each dice element, grab the value, and add it to the score
@@ -48,13 +66,22 @@ $('#rollBtn').on('click', function() {
     }
 });
 
-
-$('#dicesField').on('click', $('.dice'), function() {
-    if ($(event.target).is('.dice')) {
-        aniDone = false;
-        roll();
-        countScore();
+// allow user to press enter instead of roll button
+$('#diceInput').keypress(function(e) {
+    if (e.which == 13) {
+        $('#rollBtn').click();
     }
+});
+
+// bind this click functionality when the page is loaded
+$(document).ready(function() {
+    $('#dicesField').bind('click', $('.dice'), function() {
+        if($(event.target).is('.dice')) {
+            colorAni();
+            roll();
+            countScore();
+        }
+    });
 });
 
 $('h2').hide();
