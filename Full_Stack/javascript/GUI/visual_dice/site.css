@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 5px;
+    height: 100%;
+}
+
+#dicesField {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60vw;
+    /*border: solid red 5px;*/
+}
+
+.dice {
+    display: flex;
+    margin: 5px;
+    width: 8%;
+    height: 8%;
+    border: solid black 3px;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
