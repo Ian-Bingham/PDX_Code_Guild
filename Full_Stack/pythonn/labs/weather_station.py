@@ -5,7 +5,9 @@ import requests
 # OpenWeatherMap API: https://openweathermap.org/api
 def get_api_data(zipcode):
     package = {
-        'APPID': 'b07b5a2318c94aaba3baad83883d16dd',
+        # needed to remove APPID param b/c of github crawl bots
+        # go to https://openweathermap.org/api and sign in to get the key
+        # 'APPID': '{insert key here}',
         'zip': '{}'.format(zipcode)
     }
 
