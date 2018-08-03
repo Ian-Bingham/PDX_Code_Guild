@@ -16,17 +16,37 @@
     <!--</header>-->
 
     <h1 id="clock"> </h1>
-    <div id="stopwatch">
+    <section id="stopwatch">
         <h2>Stopwatch</h2>
         <p id="timer">00:00:00:00</p>
         <button id="startBtn">Start</button>
         <button id="stopBtn">Stop</button>
         <button id="resetBtn">Reset</button>
         <button id="lapBtn">Lap</button>
-    </div>
-    <div id="laps">
+    </section>
+    <section id="laps">
         <ul id="laplist"></ul>
-    </div>
+    </section>
+
+    <section id="cdSimple">
+        <h2>Countdown</h2>
+        <input type="text" id="timeInput">
+        <select id="cdUnit">
+            <option value="hoursUnit">Hours</option>
+            <option value="minutesUnit" selected>Minutes</option> <!-- selected by default -->
+            <option value="secondsUnit">Seconds</option>
+         </select>
+        <button id="cdSimpleStartBtn">Start</button>
+        <button id="cdSimpleStopBtn">Stop</button>
+        <p id="cdSimpleTime">Countdown Simple Time</p>
+    </section>
+
+    <section id="cdDate">
+        <input type="text" id="dateInput" placeholder="mm/dd/yyyy">
+        <button id="cdDateBtn">Countdown</button>
+        <p id="cdDateTime">Countdown Date Time</p>
+        <h1 id="cdDateDone">Times up!</h1>
+    </section>
 
     <script src="clock.js"> </script>
 </body>
