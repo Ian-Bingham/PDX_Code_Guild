@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Quotes</title>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="qotd">
+        <h1>Quote of the day</h1>
+        <h2 class="quote"></h2>
+        <h3 class="author"></h3>
+    </div>
+
+    <div id="search_quote">
+        <h1>Search For A Quote</h1>
+        <input type="text" id="searchInput">
+        <select name="filter_option" id="filter">
+            <option value="keyword">Keyword</option>
+            <option value="tag">Tag</option>
+            <option value="author">Author</option>
+        </select>
+        <button id="submit">Submit</button>
+        <div id="quotes">
+            <ul id="quoteList"></ul>
+        </div>
+    </div>
+
+    <script src="random_quotes.js">  </script>
+</body>
+</html>
