@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django URL Shortener</title>
+    {# {% load static %} #}
+    {# <link rel="stylesheet" type="text/css" href="{% static 'todo_app/css/style.css' %}" /> #}
+</head>
+<body>
+  <h1>Please enter a URL you would like shortened</h1>
+  <form action="{% url 'urlshortener_app:saveurl' %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="urlInput"/>
+      <button type="submit">+</button>
+  </form>
+  <h2>Shortened URLs</h2>
+  <ul>
+    {% for url in url_list %}
+      <li>
+        <p>
+          Orig URL:
+          <a href="{{url.og_url}}" target=_blank>
+            {{ url.og_url }}
+          </a>
+        </p>
+
+        <p>
+          Short URL:
+          <a href="{% url 'urlshortener_app:redirect_site' url.url_tag%}" target=_blank>
+            {{ url.short_url }}
+          </a>
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

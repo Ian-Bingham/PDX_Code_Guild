@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Library</title>
+</head>
+<body>
+<h1>Welcome {{ user.username }}</h1>
+<a href="{% url 'logout' %}">Logout</a>
+<h1>Library</h1>
+<form action="{% url 'library_app:index' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Search"/>
+</form>
+<ul>
+    {% for book in book_list %}
+        <li>
+            {% if book.checked_out %}
+                <a href="{% url 'library_app:checkin' book.id %}">
+                    <button>Check In</button>
+                </a>
+                <button disabled>Check Out</button>
+            {% else %}
+                <button disabled>Check In</button>
+                <a href="{% url 'library_app:checkout' book.id %}">
+                    <button>Check Out</button>
+                </a>
+            {% endif %}
+            <p>Title: {{ book.title }}</p>
+            <p>Date Published: {{ book.pub_date }}</p>
+            <p>Author: {{ book.author }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

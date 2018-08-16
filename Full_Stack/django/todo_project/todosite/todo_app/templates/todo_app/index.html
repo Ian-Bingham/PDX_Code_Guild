@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Todo List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'todo_app/css/style.css' %}" />
+</head>
+<body>
+    <div id="app">
+        <div class="holder">
+            <h1>Todos</h1>
+            <form action="{% url 'todo_app:add' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="todoInput"/>
+                <button type="submit">+</button>
+            </form>
+
+            <ul>
+                {% for todo_item in todos %}
+                <li>
+                    <!--todo_id gets passed as a path parameter in todo_app.urls -->
+                    <!-- views.delete now has access to <int:todo_id> -->
+                    <a href="{% url 'todo_app:delete'  todo_id=todo_item.id%}">
+                        <button>X</button>
+                    </a>
+
+                    <a href="{% url 'todo_app:markdone'  todo_id=todo_item.id%}">
+                        <button>✓</button>
+                    </a>
+
+                    <!--same code as the a link above-->
+                    <!--<form action="{% url 'todo_app:delete' todo_id=todo_item.id %}" method="post">-->
+                        <!--{% csrf_token %}-->
+                        <!--<button type="submit" class="delete_todo">X</button>-->
+                    <!--</form>-->
+
+                    <p {% if todo_item.completed %}
+                         class="completed"
+                       {% endif %} >
+                        {{ todo_item.todo_text }}
+                    </p>
+
+                    <p>Completed: {{ todo_item.completed }}</p>
+                    <p>Created on: {{ todo_item.created_date }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

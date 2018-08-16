@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index: Django Polls Tutorial</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}" />
+</head>
+<body>
+  <h1>Questions</h1>
+  {% if latest_question_list %}
+      <ul>
+      {% for question in latest_question_list %}  <!--  latest_question_list defined in index() in views.py -->
+          <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+
+          <!-- same as the above line of code -->
+          <!-- looks in polls.urls for the name='detail' field and gets the extended path -->
+          <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+      {% endfor %}
+      </ul>
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+</body>
+</html>

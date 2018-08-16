@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>VueJS Tutorials</title>
+        <link href="styles.css" rel="stylesheet" />
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+      <main id="vue-app">
+
+        <section id="intro">
+          <h1>{{ greet('afternoon') }}</h1>
+          <p>Name: {{ name }}</p>
+          <p>Job: {{ job }}</p>
+        </section>
+
+        <section id="data_binding">
+          <h1>Data Binding</h1>
+          <a v-bind:href="website" target="_blank">Neopets</a>
+          <input type="text" v-bind:value="name" />
+          <input type="text" v-bind:value="job" />
+          <p v-html="websiteTag"></p>
+        </section>
+
+        <section id="events">
+          <h1>Events</h1>
+          <button @click.once="add(1)">Add a Year</button> <!-- single click (works only once) -->
+          <button v-on:click="subtract(1)">Subtract a Year</button> <!-- single click (any amount of clicks) -->
+          <!-- double click -->
+          <button @dblclick="add(10)">Add 10 Years</button>
+          <button v-on:dblclick="subtract(10)">Subtract 10 Years</button>
+          <p>My age is {{ age }}</p>
+          <div id="canvas" v-on:mousemove="updateXY">{{ x }}, {{ y }}</div>
+        </section>
+
+        <section id="keyboard_events">
+          <h1>Keyboard Events</h1>
+          <label>Name:</label>
+          <input type="text" v-on:keyup.enter="logName"/> <!-- only fires when they hit the Enter key -->
+          <label>Age:</label>
+          <input type="text" v-on:keyup.alt.enter="logAge"/> <!-- only fires when they hit both Alt and Enter -->
+        </section>
+
+        <section id="two_way_data_binding">
+          <h1>Two-Way Data Binding</h1>
+          <label>Name:</label>
+          <input type="text" v-model="name" /> <!-- changes backend and frontend value of name -->
+          <span>{{ name }}</span>
+          <label>Age:</label>
+          <input type="text" v-model="age" /> <!-- changes backend and frontend value of age -->
+          <span>{{ age }}</span>
+        </section>
+
+        <section id="computed_properties">
+          <h1>Computed Properties</h1>
+          <button v-on:click="a++">Add to A</button>
+          <button v-on:click="b++">Add to B</button>
+          <p>A - {{ a }}</p>
+          <p>B - {{ b }}</p>
+
+          <!-- runs when ANY value changes -->
+          <!-- <p>Age + A = {{ addToA() }}</p>
+          <p>Age + B = {{ addToB() }}</p> -->
+          <!-- runs only when a value that is used within the function is changed -->
+          <p>Age + A = {{ addToA }}</p>
+          <p>Age + B = {{ addToB }}</p>
+        </section>
+
+        <section id="dynamic_css">
+          <h1>Dynamic CSS</h1>
+          <h2>Example 1</h2>
+          <!-- <div v-bind:class="{foo1: true, foo2: false}"> -->
+          <div v-on:click="available = !available" v-bind:class="{available: available}">
+            <span>Ryu</span>
+          </div>
+          <h2>Example 2</h2>
+          <button v-on:click="nearby = !nearby">Toggle Class nearby</button>
+          <button v-on:click="available = !available">Toggle Class available</button>
+          <div v-bind:class="compClasses">
+            <span>Joe</span>
+          </div>
+        </section>
+
+        <section id="conditionals">
+          <h1>Conditionals</h1>
+          <button v-on:click="error = !error">Toggle Error</button>
+          <button v-on:click="success = !success">Toggle Success</button>
+          <!-- takes element out of the DOM -->
+          <p v-if="error">There has been an error</p>
+          <p v-else-if="success">Success!!!</p>
+          <!-- styles with display: none -->
+          <p v-show="error">There has been an error</p>
+          <p v-show="success">Success!!!</p>
+        </section>
+
+        <section id="looping">
+          <h1>Looping Through Lists</h1>
+          <ul>
+            <li v-for="(character, index) in characters">{{ index }} . {{ character }}</li>
+          </ul>
+          <ul>
+            <li v-for="(ninja,index) in ninjas">{{ index }} . {{ ninja.name }} - {{ ninja.age }}</li>
+          </ul>
+          <template v-for="(ninja,index) in ninjas">
+            <h3>{{ index }} . {{ ninja.name }}</h3>
+            <p>{{ ninja.age }}</p>
+          </template>
+          <template v-for="ninja in ninjas">
+            <div v-for="(val, key) in ninja">
+              <p>{{ key }} - {{ val }}</p>
+            </div>
+          </template>
+        </section>
+
+      </main>
+
+      <script src="app.js"></script>
+    </body>
+</html>
