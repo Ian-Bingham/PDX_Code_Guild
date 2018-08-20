@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import BookForm
-from .models import Book, Author, Borrower, User
+from .models import Book, Author, User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
@@ -45,36 +45,30 @@ def index(request):
 @login_required
 def checkin(request, book_id, username):
     user = get_object_or_404(User, username=username)
-    borrower = get_object_or_404(Borrower, user=user)
     book = get_object_or_404(Book, id=book_id)
+    user.book_set.remove(book)
+    user.book = None
+    user.save()
     book.checked_out = False
     book.checkin_time = timezone.now()
-    # borrower.book = book
     book.save()
-    # borrower.save()
     return HttpResponse(f'Checked in book: {book.title}')
 
 
 @login_required
 def checkout(request, book_id, username):
     user = get_object_or_404(User, username=username)
-    borrower = get_object_or_404(Borrower, user=user)
     book = get_object_or_404(Book, id=book_id)
     book.checked_out = True
     book.checkout_time = timezone.now()
-    borrower.book = book
+    user.book_set.add(book)
+    user.save()
     book.save()
-    borrower.save()
     return HttpResponse(f'Checked out book: {book.title}')
 
 
 @login_required
 def profile(request, username):
     user = get_object_or_404(User, username=username)
-    borrowers = Borrower.objects.filter(user=user)
-    borrower_books = []
-    for borrower in borrowers:
-        if borrower.book and borrower.book.checked_out:
-            borrower_books.append(borrower.book)
-    return render(request, 'library_app/profile.html', {'borrower_books': borrower_books})
-
+    user_books = user.book_set.all()
+    return render(request, 'library_app/profile.html', {'user_books': user_books})

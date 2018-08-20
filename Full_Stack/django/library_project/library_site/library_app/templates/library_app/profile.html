@@ -6,9 +6,8 @@
 </head>
 <body>
     <h1>Books you've borrowed</h1>
-    <p>Blah: {{  borrower_books }}</p>
     <ul>
-        {%  for book in borrower_books %}
+        {%  for book in user_books %}
             <li>
                 <p>Book: {{  book.title }}</p>
                 <p>Author: {{  book.author }}</p>

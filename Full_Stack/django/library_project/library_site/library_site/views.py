@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from library_app.models import Borrower
 
 
 def register(request):
@@ -16,8 +15,6 @@ def register(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                borrower = Borrower(user=user)
-                borrower.save()
             return redirect('library_app:index')
         else:
             return HttpResponse('Invalid form')
