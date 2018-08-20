@@ -4,6 +4,7 @@ from . import views
 app_name = 'library_app'  # for namespacing
 urlpatterns = [
     path('', views.index, name='index'),
-    path('checkin/<int:book_id>', views.checkin, name='checkin'),
-    path('checkout/<int:book_id>', views.checkout, name='checkout'),
+    path('profile/<str:username>', views.profile, name='profile'),
+    path('checkin/<int:book_id>/<str:username>', views.checkin, name='checkin'),
+    path('checkout/<int:book_id>/<str:username>', views.checkout, name='checkout'),
 ]

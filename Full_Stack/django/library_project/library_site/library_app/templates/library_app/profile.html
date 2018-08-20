@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Library Profile</title>
+</head>
+<body>
+    <h1>Books you've borrowed</h1>
+    <p>Blah: {{  borrower_books }}</p>
+    <ul>
+        {%  for book in borrower_books %}
+            <li>
+                <p>Book: {{  book.title }}</p>
+                <p>Author: {{  book.author }}</p>
+                <p>Checked Out On: {{  book.checkout_time }}</p>
+            </li>
+        {%  endfor %}
+    </ul>
+    <a href="{% url 'library_app:index' %}">Back to library</a>
+</body>
+</html>

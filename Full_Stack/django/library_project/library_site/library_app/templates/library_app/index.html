@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Welcome {{ user.username }}</h1>
+<a href="{% url 'library_app:profile' user.username %}">Click to view your profile</a>
 <a href="{% url 'logout' %}">Logout</a>
 <h1>Library</h1>
 <form action="{% url 'library_app:index' %}" method="post">
@@ -17,13 +18,13 @@
     {% for book in book_list %}
         <li>
             {% if book.checked_out %}
-                <a href="{% url 'library_app:checkin' book.id %}">
+                <a href="{% url 'library_app:checkin' book.id user.username %}">
                     <button>Check In</button>
                 </a>
                 <button disabled>Check Out</button>
             {% else %}
                 <button disabled>Check In</button>
-                <a href="{% url 'library_app:checkout' book.id %}">
+                <a href="{% url 'library_app:checkout' book.id user.username %}">
                     <button>Check Out</button>
                 </a>
             {% endif %}
