@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
@@ -13,6 +13,9 @@ def register(request):
             username = form.cleaned_data['username']
             password = form.clean_password2()
             user = authenticate(username=username, password=password)
+            group = Group.objects.get(name='commenters')
+            user.groups.add(group)
+            user.save()
             if user:
                 login(request, user)
             return redirect('blog_app:index')

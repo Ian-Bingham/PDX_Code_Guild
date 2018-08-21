@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Blog</title>
+</head>
+<body>
+<h1>Welcome {{ user.username }}</h1>
+<a href="{% url 'blog_app:post_list' %}">Back to blogs list</a>
+<p>Title: {{  blog.title }}</p>
+<p>User: {{ blog.user.username }}</p>
+<p>Timestamp: {{  blog.timestamp }}</p>
+<p>Body: {{  blog.body }}</p>
+<ul>
+    {% for comment in blog.comment_set.all %}
+    <li>
+        <p>User: {{ comment.user.username }}</p>
+        <p>Time: {{ comment.timestamp }}</p>
+        <p>Comment: {{ comment.body }}</p>
+    </li>
+    {% endfor %}
+</ul>
+<form action="{% url 'blog_app:make_comment' blog.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>
