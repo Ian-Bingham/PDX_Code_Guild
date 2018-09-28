@@ -1,0 +1,22 @@
+PostgreSQL Notes:
+
+Creating A Table:
+CREATE TABLE my_db (
+    id INT PRIMARY KEY,
+    name TEXT,
+    price REAL,
+    etc.
+)
+
+Inserting Into Table:
+INSERT INTO my_db VALUES (1, 'robert', 2, etc.)
+INSERT INTO my_db VALUES (2, 'joe', 10, etc.)
+INSERT INTO my_db VALUES (3, 'phil', 17, etc.)
+
+Selecting From Table:
+1) Get all values: SELECT * FROM my_db
+2) Get specific attribute:
+        a) SELECT name FROM my_db
+        b) SELECT name FROM my_db WHERE name = 'phil'
+        c) SELECT price FROM my_db WHERE price <= 10
+
