@@ -1,7 +1,7 @@
 PostgreSQL Notes:
 
 Creating A Table:
-CREATE TABLE my_db (
+CREATE TABLE groceries (
     id INT PRIMARY KEY,
     name TEXT,
     price REAL,
@@ -9,14 +9,13 @@ CREATE TABLE my_db (
 )
 
 Inserting Into Table:
-INSERT INTO my_db VALUES (1, 'robert', 2, etc.)
-INSERT INTO my_db VALUES (2, 'joe', 10, etc.)
-INSERT INTO my_db VALUES (3, 'phil', 17, etc.)
+INSERT INTO groceries VALUES (1, 'apple', 0.68, etc.)
+INSERT INTO groceries VALUES (2, 'banana', 0.49, etc.)
+INSERT INTO groceries VALUES (3, 'chicken', 0.98, etc.)
 
 Selecting From Table:
-1) Get all values: SELECT * FROM my_db
+1) Get all values: SELECT * FROM groceries
 2) Get specific attribute:
-        a) SELECT name FROM my_db
-        b) SELECT name FROM my_db WHERE name = 'phil'
-        c) SELECT price FROM my_db WHERE price <= 10
-
+        a) SELECT name FROM groceries
+        b) SELECT name FROM groceries WHERE name = 'banana'
+        c) SELECT price FROM groceries WHERE price <= 0.68
