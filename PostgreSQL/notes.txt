@@ -16,10 +16,17 @@ INSERT INTO groceries (id, name, price) VALUES (3, 'chicken', 0.98, etc.)
 
 Selecting From Table:
 1) Get all values: SELECT * FROM groceries
-2) Get specific attribute:
+2) Order by specific value: SELECT * FROM groceries ORDER BY price
+3) Get specific attribute:
         a) SELECT name FROM groceries
         b) SELECT name FROM groceries WHERE name = 'banana'
         c) SELECT price FROM groceries WHERE price <= 0.68
+
+Update Table:
+UPDATE groceries SET price = 5000 WHERE id = 1
+
+Delete Table:
+DELETE * FROM groceries
 
 -------------------------------------------------------------------------------
 
