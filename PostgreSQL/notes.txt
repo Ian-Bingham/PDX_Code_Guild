@@ -26,7 +26,9 @@ Update Table:
 UPDATE groceries SET price = 5000 WHERE id = 1
 
 Delete Table:
-DELETE * FROM groceries
+DELETE FROM groceries WHERE id = 5
+Note: First use SELECT on the thing you want to delete to make sure you are grabbing
+the correct values, then perform the DELETE query
 
 -------------------------------------------------------------------------------
 
@@ -39,6 +41,9 @@ connection = psycopg2.connect(user = 'ian',
                               port = '5432',
                               database = 'test_db')
                               - creates a connection object; connects to a database
+
+connection.autocommit = False - must explicitly call connection.commit() to save
+                                changes to the database
 
 cursor = connection.cursor()  - creates a cursor object
                               - allows us to execute PostgreSQL commands from Python
