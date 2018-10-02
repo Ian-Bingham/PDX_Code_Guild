@@ -8,6 +8,8 @@ try:
                                     port = '5432',
                                     database = 'test_db')
 
+    conneciton.autocommit = False
+
     cursor = connection.cursor()
 
     create_table_query = """CREATE TABLE groceries
@@ -70,12 +72,28 @@ try:
     cursor.execute("SELECT * FROM groceries ORDER BY id")
     print("Table before multi update ", cursor.fetchall())
 
-    # table after multi update
     cursor.executemany(update_multiple_query, records_to_update)
     cursor.execute("SELECT * FROM groceries ORDER BY id")
     print("Table after multi update ", cursor.fetchall())
     connection.commit()
 
+
+    # DELETE single record
+    cursor.execute("DELETE FROM groceries WHERE id = 5")
+    cursor.execute("SELECT * FROM groceries ORDER BY id")
+    print("Table after single delete ", cursor.fetchall())
+    connection.commit()
+
+
+    # DELETE multiple records
+    records_to_delete = [   (1,),
+                            (2,),
+                            (4,)]
+    delete_multiple_query = """DELETE FROM groceries WHERE id = %s"""
+    cursor.executemany(delete_multiple_query, records_to_delete)
+    cursor.execute("SELECT * FROM groceries ORDER BY id")
+    print("Table after multi delete ", cursor.fetchall())
+    connection.commit()
 
 
 except(Exception, psycopg2.DatabaseError) as error:
