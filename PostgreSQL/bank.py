@@ -3,7 +3,7 @@ from psycopg2 import Error
 
 
 def create_table(connection, cursor):
-    # check to see if the bank_accounts table already exists
+    # create table if it does not exist
     cursor.execute("SELECT * FROM information_schema.tables WHERE table_name='bank_accounts'")
     if not bool(cursor.rowcount):
         create_table_query = """CREATE TABLE bank_accounts (
@@ -16,9 +16,9 @@ def create_table(connection, cursor):
 
 def create_account(connection, cursor):
     while True:
-        name = input("Please type in your first and last name to access your account.\n: ")
+        name = input("\nPlease type in your first and last name to access your account.\n: ")
 
-        # check if the account exists. if not, create a new account
+        # create account if it does not exist
         cursor.execute("SELECT * FROM bank_accounts WHERE name=%s", (name,))
         account = cursor.fetchone()
         if not account:
@@ -27,7 +27,7 @@ def create_account(connection, cursor):
             # ask if they want to create a new account with the name they provided
             # if yes, create a new account. if not, ask for another name
             while True:
-                response = input("Would you like to create an account with that name?\n: ").lower()
+                response = input("\nWould you like to create an account with that name?\n: ").lower()
                 if response in ['yes', 'y']:
                     # create the account
                     cursor.execute("INSERT INTO bank_accounts (name, amount) VALUES (%s, %s)", (name, 0))
@@ -37,36 +37,60 @@ def create_account(connection, cursor):
                 elif response in ['no', 'n']:
                     break
                 else:
-                    print("That was not a valid option. Try again.")
+                    print("Invalid input")
         else:
             return name
 
 
-def deposit(connection, cursor, name):
-    cursor.execute("SELECT * FROM bank_accounts WHERE name=%s", (name,))
-    amount = cursor.fetchone()[2]
+# ask for an amount to deposit/withdraw
+def ask_for_amount(action):
     while True:
-        deposit = input("How much would you like to deposit?\n: $")
-        if deposit[0] == '-':
-            print("Cannot input negative number. Try again.")
+        amount = input(f"\nHow much would you like to {action}?\n: $")
+        if amount == '' or amount.find('-') == 0:
+            print("Invalid input.")
             continue
-            
+
         try:
-            float(deposit)
+            float(amount)
             break
         except ValueError:
-            print("That was not a valid number. Try again.")
+            print("Invalid input.")
 
-    amount += round(float(deposit), 2)
+    return round(float(amount), 2)
+
+
+def deposit(connection, cursor, name):
+    # get the current amount
+    cursor.execute("SELECT * FROM bank_accounts WHERE name=%s", (name,))
+    amount = cursor.fetchone()[2]
+
+    # add the deposit
+    deposit = ask_for_amount('deposit')
+    amount += deposit
     cursor.execute("UPDATE bank_accounts SET amount = %s WHERE name=%s", (amount, name,))
     connection.commit()
     print("Successfully desposited.")
 
 
 def withdraw(connection, cursor, name):
+    # get the current amount
     cursor.execute("SELECT * FROM bank_accounts WHERE name=%s", (name,))
     amount = cursor.fetchone()[2]
-    pass
+
+    # check if they have enough money to withdraw
+    while True:
+        withdraw = ask_for_amount('withdraw')
+        if withdraw > amount:
+            print('Not enough funds in your account.')
+            continue
+        else:
+            break
+
+    # subtract withdraw
+    amount -= withdraw
+    cursor.execute("UPDATE bank_accounts SET amount = %s WHERE name=%s", (amount, name,))
+    connection.commit()
+    print("Successfully withdrew.")
 
 
 def main():
@@ -87,9 +111,9 @@ def main():
         while True:
             cursor.execute("SELECT * FROM bank_accounts WHERE name=%s", (name,))
             account = cursor.fetchone()
-            print(f"Hello {account[1]}. You currently have ${account[2]}.")
+            print(f"\nHello {account[1]}. You currently have ${account[2]}.")
 
-            action = input("Would you like to: (d)eposit, (w)ithdraw, or (q)uit?\n: ").lower()
+            action = input("\nWould you like to: (d)eposit, (w)ithdraw, or (q)uit?\n: ").lower()
             if action in ['d', 'deposit']:
                 deposit(connection, cursor, name)
             elif action in ['w', 'withdraw']:
@@ -98,16 +122,12 @@ def main():
                 print("Have a nice day!")
                 exit(0)
             else:
-                print("That was not a valid option. Try again.")
-
-
-
+                print("Invalid input.")
 
     except(Exception, psycopg2.DatabaseError) as error:
         print("Error: ", error)
-        # if(connection):
-        #     connection.rollback()  # rollback all changes to the database since last commit
-        # print(f"Failed inserting values: {error}")
+        if(connection):
+            connection.rollback()  # rollback all changes to the database since last commit
 
     finally:
         # closing database connection
