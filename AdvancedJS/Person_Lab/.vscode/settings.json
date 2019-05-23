@@ -1,0 +1,5 @@
+{
+  "eslint.autoFixOnSave": true,
+  "git.ignoreLimitWarning": true,
+  "editor.tabSize": 2
+}
