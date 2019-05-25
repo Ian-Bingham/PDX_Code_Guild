@@ -5,6 +5,7 @@ const List = require('../models/List');
 
 const router = Router();
 
+// Create
 router.post('', async (req, res) => {
 
   const { description } = req.body;
@@ -25,7 +26,67 @@ router.post('', async (req, res) => {
     }
   }
 
-  res.status(500).send('could not find list to add item to');
+  res.status(500).send('couldn\'t find list to add item to');
+
+});
+
+// Read
+router.get('', async (req, res) => {
+
+  const { description } = req.body;
+
+  const item = await Item.findOne({ description: description });
+
+  if(item){
+    res.send({
+      ...item._doc
+    });
+    return;
+  } 
+
+  res.status(400).send('couldn\'t find item');
+
+});
+
+// Update
+router.patch('', async (req, res) => {
+
+  const { oldDescription, newDescription } = req.body;
+
+  const item = await Item.findOne({ description: oldDescription });
+
+  if(item){
+    item.set({ description: newDescription});
+    
+    try {
+      await item.save();
+      res.send({
+        ...item._doc
+      });
+      return;
+    } catch(err) {
+      res.status(400).send(err.message);
+    }
+  } 
+
+  res.status(400).send('failed to update item');
+
+});
+
+// Delete
+router.delete('', async (req, res) => {
+
+  const { description } = req.body;
+
+  const item = await Item.findOne({ description: description });
+
+  if(item){
+    item.remove();
+    res.send(`item: ${item.description} deleted`);
+    return;
+  } 
+
+  res.status(400).send('failed to delete item');
 
 });
 
