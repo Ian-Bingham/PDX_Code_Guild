@@ -17,9 +17,7 @@ router.post('', async (req, res) => {
   
     try {
       await item.save();
-      res.send({
-        ...item._doc
-      });
+      res.send(item);
       return;
     } catch(err) {
       res.status(400).send(err.message);
@@ -38,9 +36,7 @@ router.get('', async (req, res) => {
   const item = await Item.findOne({ description: description });
 
   if(item){
-    res.send({
-      ...item._doc
-    });
+    res.send(item);
     return;
   } 
 
@@ -60,9 +56,7 @@ router.patch('', async (req, res) => {
     
     try {
       await item.save();
-      res.send({
-        ...item._doc
-      });
+      res.send(item);
       return;
     } catch(err) {
       res.status(400).send(err.message);
@@ -81,7 +75,7 @@ router.delete('', async (req, res) => {
   const item = await Item.findOne({ description: description });
 
   if(item){
-    item.remove();
+    await item.remove();
     res.send(`item: ${item.description} deleted`);
     return;
   } 

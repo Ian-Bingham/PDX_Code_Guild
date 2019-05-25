@@ -15,7 +15,7 @@ listSchema.virtual('items', {
   ref: 'Item',
   localField: '_id',
   foreignField: 'list',
-  ustOne: false
+  justOne: false
 });
 
 const List = mongoose.model('List', listSchema);
