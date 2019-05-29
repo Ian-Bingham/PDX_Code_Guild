@@ -6,11 +6,17 @@ const itemSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  completed: {
+    type: Boolean,
+    default: false
+  },
   list: {
     type: ObjectId,
     ref: 'List',
     required: true,
   }
+}, {
+  timestamps: true,
 });
 
 const Item = mongoose.model('Item', itemSchema);

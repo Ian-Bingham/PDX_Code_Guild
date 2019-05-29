@@ -20,27 +20,27 @@ router.post('', async (req, res) => {
 });
 
 // Read
-router.get('', async (req, res) => {
+router.get('/:_id', async (req, res) => {
 
-  const { name } = req.body;
+  const { _id } = req.params;
 
-  const list = await List.findOne({ name: name }).populate('items');
+  const list = await List.findOne({ _id: _id }).populate('items');
 
   if(list){
     res.send(list);
     return;
   } 
 
-  res.status(400).send('couldn\'t find list');
+  res.status(404).send('couldn\'t find list');
 
 });
 
 // Update
-router.patch('', async (req, res) => {
+router.patch('/:_id', async (req, res) => {
+  const { _id } = req.params;
+  const { newName } = req.body;
 
-  const { oldName, newName } = req.body;
-
-  const list = await List.findOne({ name: oldName });
+  const list = await List.findOne({ _id: _id });
 
   if(list){
     list.set({ name: newName});
@@ -59,11 +59,10 @@ router.patch('', async (req, res) => {
 });
 
 // Delete
-router.delete('', async (req, res) => {
+router.delete('/:_id', async (req, res) => {
+  const { _id } = req.params;
 
-  const { name } = req.body;
-
-  const list = await List.findOne({ name: name });
+  const list = await List.findOne({ _id: _id });
 
   if(list){
     const items = await Item.find({ list: list._id });

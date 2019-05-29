@@ -8,7 +8,8 @@ const listSchema = mongoose.Schema({
 }, {
   toJSON: {
     virtuals: true
-  }
+  },
+  timestamps: true,
 });
 
 listSchema.virtual('items', {
